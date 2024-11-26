@@ -7,7 +7,7 @@
 #include <time.h>
 #include <limits.h>
 
-#include "book.h"
+#include "flight.h"
 
 /**
  * @brief Gera um ID único baseado em um valor aleatório e um algoritmo de mistura.
@@ -58,23 +58,22 @@ Node *initialize()
  * de um livro para o nó recém-criado. O nó é inicializado com ponteiros
  * filhos (esquerdo e direito) como NULL.
  *
- * @param book Estrutura do tipo Book que contém as informações do livro.
+ * @param flight Estrutura do tipo Book que contém as informações do livro.
  *
  * @return Ponteiro para o novo nó criado.
  */
-Node *create_node(const Book book)
+Node *create_node(const Flight flight)
 {
     // Aloca memória para um novo nó.
     Node *new_node = (Node *)malloc(sizeof(Node));
 
     // Copia as informações do livro para o nó.
-    new_node->book.id = book.id;
-    strcpy(new_node->book.title, book.title);
-    strcpy(new_node->book.author, book.author);
-    strcpy(new_node->book.genre, book.genre);
-    strcpy(new_node->book.publisher, book.publisher);
-    new_node->book.pages = book.pages;
-    new_node->book.year = book.year;
+    strcpy(new_node->flight.id, flight.id);
+    new_node->flight.fuel = flight.fuel;
+    new_node->flight.time, flight.time;
+    new_node->flight.operation, flight.operation;
+    new_node->flight.emergency, flight.emergency;
+    new_node->flight.priority = flight.priority;
 
     // Inicializa os ponteiros filhos como NULL, já que o nó não tem filhos inicialmente.
     new_node->left = NULL;
@@ -91,26 +90,26 @@ Node *create_node(const Book book)
  * id maior que o nó atual são inseridos à esquerda, e os com id menor à direita.
  *
  * @param root Ponteiro duplo para o nó raiz da árvore binária.
- * @param book Livro que será inserido na árvore.
+ * @param flight Livro que será inserido na árvore.
  */
-void insert(Node **root, const Book book)
+void insert(Node **root, const Flight flight)
 {
     // Se o nó atual for NULL, significa que chegamos em uma posição válida para inserir.
     if ((*root) == NULL)
     {
-        Node *new_node = create_node(book); // Cria um novo nó com os dados do livro.
+        Node *new_node = create_node(flight); // Cria um novo nó com os dados do livro.
         *root = new_node;                   // Define o novo nó como o nó raiz ou como filho do nó anterior.
         return;
     }
 
     // Se o id do livro for menor que o id do nó atual, insere recursivamente à esquerda.
-    if (book.id < (*root)->book.id)
-        insert(&(*root)->left, book);
+    if (flight.priority < (*root)->flight.priority)
+        insert(&(*root)->left, flight);
     // Se o id do livro for maior que o id do nó atual, insere recursivamente à direita.
-    else if (book.id > (*root)->book.id)
-        insert(&(*root)->right, book);
+    else if (flight.priority > (*root)->flight.priority)
+        insert(&(*root)->right, flight);
     else
-        fprintf(stderr, "Este livro ja foi inserido na biblioteca.\n");
+        fprintf(stderr, "Este voo ja foi inserido na biblioteca.\n");
 }
 
 /**
@@ -124,7 +123,7 @@ void insert(Node **root, const Book book)
  *
  * @return A árvore binária com os livros carregados.
  */
-Node *load_books(const char *file_path, Node *root)
+Node *load_flights(const char *file_path, Node *root) 
 {
     // Abre o arquivo no modo leitura.
     FILE *input_file = fopen(file_path, "r");
@@ -138,12 +137,12 @@ Node *load_books(const char *file_path, Node *root)
     }
 
     char linha[512]; // Buffer para ler cada linha do arquivo.
-    Book book;       // Variável para armazenar os dados do livro.
+    Flight flight;       // Variável para armazenar os dados do livro.
 
     // Lê cada linha do arquivo até o final.
     while (fgets(linha, sizeof(linha), input_file))
     {
-        book.id = generate_id();
+        flight.id = generate_id();
         // Tenta analisar os dados da linha e preencher a estrutura Book.
         int success = sscanf(linha, "%99[^,],%99[^,],%49[^,],%49[^,],%u,%u",
                              book.title, book.author, book.genre, book.publisher,

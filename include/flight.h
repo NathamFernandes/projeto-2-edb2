@@ -41,10 +41,10 @@ Node *create_node(const Flight flight);
 
 // Inicializa uma árvore vazia.
 Node *initialize();
-// // Carrega os livros de um arquivo .csv.
-// Node *load_books(const char *file_path, Node *root);
-// // Insere um livro na árvore.
-// void insert(Node **root, const Book book);
+// Carrega os livros de um arquivo .csv.
+Node *load_flights(const char *file_path, Node *root);
+// Insere um livro na árvore.
+void insert(Node **root, const Flight flight);
 // // Busca por todos os livros de um determinado gênero.
 // void search_by_genre(Node *root, const char *genre, void (*print)(const Book book));
 // // Lista todos os livros da árvore.
