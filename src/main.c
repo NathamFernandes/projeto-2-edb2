@@ -16,8 +16,7 @@ int main(int argc, char *argv[])
 
     main_loop(flights, &flights_amount);
 
-    // deallocate(library);
-    // library = NULL;
+    deallocate(flights, &flights_amount);
 
-    // return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }

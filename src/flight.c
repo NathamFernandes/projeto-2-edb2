@@ -63,27 +63,14 @@ Flight *insert(Flight *flights, Flight flight, int *flights_amount)
     return flights;
 }
 
-// Flight *create_flight(Flight *flights)
-// {
-// }
+void deallocate(Flight *flights, int *flights_amount)
+{
+    if (flights == NULL)
+        return;
 
-// Flight *delete_flight(Flight *flights)
-// {
-// }
+    for (int i = 0; i < *flights_amount; i++)
+        free(flights + i);
 
-// void deallocate(Flight *flights)
-// {
-//     // // Caso base: se o nó atual for NULL, não há nada a fazer
-//     // if (root == NULL)
-//     //     return;
-
-//     // // Desaloca recursivamente o nó à esquerda da árvore
-//     // deallocate(root->left);
-//     // free(root->left);
-//     // root->left = NULL;
-
-//     // // Desaloca recursivamente o nó à direita da árvore
-//     // deallocate(root->right);
-//     // free(root->right);
-//     // root->right = NULL;
-// }
+    free(flights);
+    flights = NULL;
+}

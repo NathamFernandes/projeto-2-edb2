@@ -5,13 +5,13 @@
 #include "handlers.h"
 #include "flight.h"
 
-#define HORIZONTAL_LINE_LENGTH 139
-#define ID_COLUMN_LENGTH 22
-#define FUEL_COLUMN_LENGTH 35
-#define TIME_COLUMN_LENGTH 28
-#define OPERATION_COLUMN_LENGHT 20
-#define EMERGENCY_COLUMN_LENGTH 12
-#define PRIORITY_COLUMN_LENGTH 5
+#define HORIZONTAL_LINE_LENGTH 97
+#define ID_COLUMN_LENGTH 15
+#define FUEL_COLUMN_LENGTH 15
+#define TIME_COLUMN_LENGTH 15
+#define OPERATION_COLUMN_LENGHT 15
+#define EMERGENCY_COLUMN_LENGTH 15
+#define PRIORITY_COLUMN_LENGTH 15
 
 /**
  * @brief Desenha uma linha horizontal de caracteres '-'.
@@ -67,12 +67,12 @@ static void draw_table_header()
 static void draw_row(Flight flight)
 {
     printf("|");
-    printf(" %-*s | %-*u | %-*u | %-*hu | %-*hu | %-*u |\n",
+    printf(" %-*s | %-*u | %-*u | %-*s | %-*s | %-*u |\n",
            ID_COLUMN_LENGTH - 2, flight.id,
            FUEL_COLUMN_LENGTH - 2, flight.fuel,
            TIME_COLUMN_LENGTH - 2, flight.time,
-           OPERATION_COLUMN_LENGHT - 2, flight.operation,
-           EMERGENCY_COLUMN_LENGTH - 2, flight.emergency,
+           OPERATION_COLUMN_LENGHT - 2, flight.operation ? "Decolagem" : "Pouso",
+           EMERGENCY_COLUMN_LENGTH - 2, flight.emergency ? "Sim" : "Nao",
            PRIORITY_COLUMN_LENGTH - 2, flight.priority);
 
     draw_horizontal_line();

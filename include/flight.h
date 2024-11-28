@@ -24,9 +24,6 @@ typedef struct
 Flight *load_flights(char *file_name, Flight *flights, int *flights_amount);
 unsigned calculate_priority(Flight flight);
 Flight *insert(Flight *flights, Flight flight, int *flights_amount);
-// void show_flights();
-
-// // Desaloca toda a árvore binária.
-// void deallocate(Flight *flights);
+void deallocate(Flight *flights, int *flights_amount);
 
 #endif
