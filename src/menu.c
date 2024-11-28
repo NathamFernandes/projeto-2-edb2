@@ -2,13 +2,14 @@
 #include <stdlib.h>
 
 #include "menu.h"
+#include "flight.h"
 
 /**
  * @brief Loop do programa.
  *
  * @param library O nó raiz da biblioteca.
  */
-void main_loop(Node *library)
+void main_loop(Flight *flights, int *flights_amount)
 {
     int option;
 
@@ -30,23 +31,23 @@ void main_loop(Node *library)
         // Handlers.
         switch (option)
         {
-        case 1:
-            library = handle_new_book(library);
-            break;
-        case 2:
-            handle_book_search(library);
-            break;
-        case 3:
-            library = handle_books_import(library);
-            break;
+        // case 1:
+        //     library = handle_new_book(library);
+        //     break;
+        // case 2:
+        //     handle_book_search(library);
+        //     break;
+        // case 3:
+        //     library = handle_books_import(library);
+        //     break;
         case 4:
-            handle_books_show(library);
+            handle_flights_show(flights, *flights_amount);
             break;
-        case 5:
-            deallocate(library);
-            free(library);
-            library = NULL;
-            break;
+            // case 5:
+            //     deallocate(library);
+            //     free(library);
+            //     library = NULL;
+            //     break;
         }
     }
 }

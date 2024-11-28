@@ -1,24 +1,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "book.h"
+#include "flight.h"
 #include "menu.h"
 
 int main(int argc, char *argv[])
 {
-    Node *library = initialize();
+    Flight *flights = NULL;
+    int flights_amount = 0;
 
-    library = load_books(argv[1], library);
+    flights = load_flights(argv[1], flights, &flights_amount);
 
-    if (library == NULL)
-    {
+    if (flights == NULL)
         return EXIT_FAILURE;
-    }
 
-    main_loop(library);
+    main_loop(flights, &flights_amount);
 
-    deallocate(library);
-    library = NULL;
+    // deallocate(library);
+    // library = NULL;
 
-    return EXIT_SUCCESS;
+    // return EXIT_SUCCESS;
 }

@@ -5,11 +5,6 @@
 #include <ctype.h>
 
 #define MAX_LEN 50
-#define TRUE 1
-
-//== Aliases
-
-// typedef size_t hash_t;
 
 //== Structs
 
@@ -24,32 +19,14 @@ typedef struct
     unsigned priority;
 } Flight;
 
-// Representaçãp de um nó da árvore.
-typedef struct node
-{
-    Flight flight;      //! Dado guardado pelo nó da árvore.
-    struct node *left;  //! Ponteiro para o filho esquerdo do nó.
-    struct node *right; //! Ponteiro para o filho direito do nó.
-} Node;
-
 //== Aux functions
 
-// Cria um novo nó na árvore.
-Node *create_node(const Flight flight);
+Flight *load_flights(char *file_name, Flight *flights, int *flights_amount);
+unsigned calculate_priority(Flight flight);
+Flight *insert(Flight *flights, Flight flight, int *flights_amount);
+// void show_flights();
 
-//== Main functions
-
-// Inicializa uma árvore vazia.
-Node *initialize();
-// // Carrega os livros de um arquivo .csv.
-// Node *load_books(const char *file_path, Node *root);
-// // Insere um livro na árvore.
-// void insert(Node **root, const Book book);
-// // Busca por todos os livros de um determinado gênero.
-// void search_by_genre(Node *root, const char *genre, void (*print)(const Book book));
-// // Lista todos os livros da árvore.
-// void show_books(Node *root, void (*print)(const Book));
 // // Desaloca toda a árvore binária.
-// void deallocate(Node *root);
+// void deallocate(Flight *flights);
 
 #endif
