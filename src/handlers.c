@@ -7,12 +7,11 @@
 
 #define HORIZONTAL_LINE_LENGTH 139
 #define ID_COLUMN_LENGTH 22
-#define TITLE_COLUMN_LENGTH 35
-#define AUTHOR_COLUMN_LENGTH 28
-#define GENRE_COLUMN_LENGHT 20
-#define PUBLISHER_COLUMN_LENGTH 12
-#define YEAR_COLUMN_LENGTH 5
-#define PAGES_COLUMN_LENGTH 5
+#define FUEL_COLUMN_LENGTH 35
+#define TIME_COLUMN_LENGTH 28
+#define OPERATION_COLUMN_LENGHT 20
+#define EMERGENCY_COLUMN_LENGTH 12
+#define PRIORITY_COLUMN_LENGTH 5
 
 /**
  * @brief Desenha uma linha horizontal de caracteres '-'.
@@ -42,14 +41,13 @@ static void draw_table_header()
     draw_horizontal_line();
 
     printf("|");
-    printf(" %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n",
+    printf(" %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |\n",
            ID_COLUMN_LENGTH - 2, "Id",
-           TITLE_COLUMN_LENGTH - 2, "Title",
-           AUTHOR_COLUMN_LENGTH - 2, "Author",
-           GENRE_COLUMN_LENGHT - 2, "Genre",
-           PUBLISHER_COLUMN_LENGTH - 2, "Publisher",
-           YEAR_COLUMN_LENGTH - 2, "Year",
-           PAGES_COLUMN_LENGTH - 2, "Pages");
+           FUEL_COLUMN_LENGTH - 2, "Combustivel",
+           TIME_COLUMN_LENGTH - 2, "Tempo",
+           OPERATION_COLUMN_LENGHT - 2, "Operacao",
+           EMERGENCY_COLUMN_LENGTH - 2, "Emergencia",
+           PRIORITY_COLUMN_LENGTH - 2, "Prioridade");
 
     draw_horizontal_line();
 }
@@ -69,14 +67,13 @@ static void draw_table_header()
 static void draw_row(Flight flight)
 {
     printf("|");
-    // printf(" %-*zu | %-*s | %-*s | %-*s | %-*s | %-*u | %-*u |\n",
-    //        ID_COLUMN_LENGTH - 2, book.id,
-    //        TITLE_COLUMN_LENGTH - 2, book.title,
-    //        AUTHOR_COLUMN_LENGTH - 2, book.author,
-    //        GENRE_COLUMN_LENGHT - 2, book.genre,
-    //        PUBLISHER_COLUMN_LENGTH - 2, book.publisher,
-    //        YEAR_COLUMN_LENGTH - 2, book.year,
-    //        PAGES_COLUMN_LENGTH, book.pages);
+    printf(" %-*s | %-*u | %-*u | %-*hu | %-*hu | %-*u |\n",
+           ID_COLUMN_LENGTH - 2, flight.id,
+           FUEL_COLUMN_LENGTH - 2, flight.fuel,
+           TIME_COLUMN_LENGTH - 2, flight.time,
+           OPERATION_COLUMN_LENGHT - 2, flight.operation,
+           EMERGENCY_COLUMN_LENGTH - 2, flight.emergency,
+           PRIORITY_COLUMN_LENGTH - 2, flight.priority);
 
     draw_horizontal_line();
 }
@@ -180,11 +177,7 @@ static void draw_row(Flight flight)
  */
 void handle_flights_show(Flight *flights, int flights_amount)
 {
-    printf("entrou %d", flights_amount);
+    draw_table_header();
     for (int i = 0; i < flights_amount; i++)
-    {
-        printf("a %s a", flights[i].id);
-    }
-    // draw_table_header();
-    // show_books(library, draw_row);
+        draw_row(flights[i]);
 }
