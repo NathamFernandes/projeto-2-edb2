@@ -6,6 +6,6 @@
 // Node *handle_new_book(Node *library);
 // void handle_book_search(Node *library);
 // Node *handle_books_import(Node *library);
-void handle_flights_show(Flight *flights, int flights_amount);
+void handle_flights_show(Heap* heap);
 
 #endif

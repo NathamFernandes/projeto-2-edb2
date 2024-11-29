@@ -71,7 +71,7 @@ static void draw_row(Flight flight)
            ID_COLUMN_LENGTH - 2, flight.id,
            FUEL_COLUMN_LENGTH - 2, flight.fuel,
            TIME_COLUMN_LENGTH - 2, flight.time,
-           OPERATION_COLUMN_LENGHT - 2, flight.operation ? "Decolagem" : "Pouso",
+           OPERATION_COLUMN_LENGHT - 2, flight.operation == TAKEOFF ? "Decolagem" : "Pouso",
            EMERGENCY_COLUMN_LENGTH - 2, flight.emergency ? "Sim" : "Nao",
            PRIORITY_COLUMN_LENGTH - 2, flight.priority);
 
@@ -175,9 +175,9 @@ static void draw_row(Flight flight)
  *
  * @param library O nó raiz da biblioteca.
  */
-void handle_flights_show(Flight *flights, int flights_amount)
+void handle_flights_show(Heap* heap)
 {
     draw_table_header();
-    for (int i = 0; i < flights_amount; i++)
-        draw_row(flights[i]);
+    for (int i = 0; i < heap->size; i++)
+        draw_row(heap->data[i]);
 }

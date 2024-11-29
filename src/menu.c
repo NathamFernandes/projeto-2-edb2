@@ -10,7 +10,7 @@
  * @param flights O ponteiro para o vetor de voos.
  * @param flights_amount O tamanho do vetor.
  */
-void main_loop(Flight *flights, int *flights_amount)
+void main_loop(Heap* heap)
 {
     int option;
 
@@ -42,10 +42,10 @@ void main_loop(Flight *flights, int *flights_amount)
             // library = handle_books_import(library);
             break;
         case 4:
-            handle_flights_show(flights, *flights_amount);
+            handle_flights_show(heap);
             break;
         case 5:
-            deallocate(flights, flights_amount);
+            deallocate(&heap);
             break;
         }
     }

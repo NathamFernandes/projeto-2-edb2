@@ -6,17 +6,21 @@
 
 int main(int argc, char *argv[])
 {
-    Flight *flights = NULL;
-    int flights_amount = 0;
+    Heap *heap = initialize();
+    load_flights(argv[1], heap);
 
-    flights = load_flights(argv[1], flights, &flights_amount);
-
-    if (flights == NULL)
+    if (heap == NULL)
         return EXIT_FAILURE;
 
-    main_loop(flights, &flights_amount);
+    printf("Heap: \n");
+    for (size_t i = 0; i < heap->size; i++) {
+        printf("%hu ", heap->data[i].priority);
+    }
+    printf("\n");
+    
+    //main_loop(heap);
 
-    deallocate(flights, &flights_amount);
+    deallocate(&heap);
 
     return EXIT_SUCCESS;
 }

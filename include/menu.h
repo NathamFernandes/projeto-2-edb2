@@ -4,7 +4,7 @@
 #include "handlers.h"
 #include "flight.h"
 
-void main_loop(Flight *flights, int *flights_amount);
+void main_loop(Heap* heap);
 int render_first_menu();
 
 #endif
