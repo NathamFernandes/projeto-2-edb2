@@ -190,13 +190,12 @@ void heapify(Heap *heap, size_t idx)
 }
 
 /**
- * @brief Remove e retorna o voo com a maior prioridade (raiz da heap).
+ * @brief Remove o voo com a maior prioridade (raiz da heap).
  *
  * A função remove a raiz (maior prioridade) da heap e retorna o voo removido.
  * Após a remoção, a heap é ajustada para manter a propriedade de Max-Heap.
  *
  * @param heap Ponteiro para a heap.
- * @return Flight* Ponteiro para o voo removido ou NULL se a heap estiver vazia.
  */
 void pop(Heap *heap)
 {
