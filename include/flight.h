@@ -56,9 +56,9 @@ unsigned calculate_priority(Flight flight);
 void insert(Heap *heap, Flight flight);
 // Remove a aeronave de maior prioridade.
 void pop(Heap *heap);
-// Retorna a aernave de maior prioridade.
+// Retorna a aeronave de maior prioridade.
 Flight* top(Heap* heap);
-// Remove uma aernave especifica da heap.
+// Remove uma aeronave especifica da heap.
 Flight *excluir(Heap *heap, char flight_id[MAX_LEN]);
 // Desaloca memoria da heap.
 void deallocate(Heap **heap);
