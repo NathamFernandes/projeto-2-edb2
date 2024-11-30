@@ -42,7 +42,7 @@ Heap *initialize()
  * @param file_path Caminho do arquivo contendo os dados dos voos.
  * @param heap Ponteiro para a heap onde os voos serão armazenados.
  */
-void load_flights(char *file_path, Heap *heap)
+bool load_flights(char *file_path, Heap *heap)
 {
     // Tenta abrir o arquivo para leitura
     FILE *input_file = fopen(file_path, "r");
@@ -51,7 +51,7 @@ void load_flights(char *file_path, Heap *heap)
     if (!input_file)
     {
         fprintf(stderr, "Unable to read file \"%s\": %s.\n", file_path, strerror(errno));
-        return; // Retorna caso haja erro ao abrir o arquivo
+        return false; // Retorna caso haja erro ao abrir o arquivo
     }
 
     // Buffer para armazenar uma linha lida do arquivo
@@ -79,6 +79,8 @@ void load_flights(char *file_path, Heap *heap)
 
     // Fecha o arquivo após terminar a leitura
     fclose(input_file);
+
+    return true;
 }
 
 /**
@@ -196,13 +198,13 @@ void heapify(Heap *heap, size_t idx)
  * @param heap Ponteiro para a heap.
  * @return Flight* Ponteiro para o voo removido ou NULL se a heap estiver vazia.
  */
-Flight *pop(Heap *heap)
+void pop(Heap *heap)
 {
     // Verifica se a heap está vazia
     if (heap->size == 0)
     {
         fprintf(stderr, "Impossível remover elemento, a árvore está vazia.\n");
-        return NULL; // Se a heap estiver vazia, retorna NULL
+        return; // Se a heap estiver vazia, retorna NULL
     }
 
     // Ponteiro para o voo que será removido (raiz da heap)
@@ -215,9 +217,17 @@ Flight *pop(Heap *heap)
 
     // Restaura a propriedade de Max-Heap
     heapify(heap, 0);
+}
 
-    // Retorna o voo removido
-    return flight;
+Flight* top(Heap* heap)
+{
+    if (heap->size == 0)
+    {
+        fprintf(stderr, "Nao ha elementos a serem consutados.\n");
+        return; // Se a heap estiver vazia, retorna NULL
+    }
+
+    return &heap->data[0];
 }
 
 Flight *excluir(Heap *heap, char flight_id[MAX_LEN])
@@ -295,32 +305,3 @@ void deallocate(Heap **heap)
     // Define o ponteiro para NULL após liberar a memória
     *heap = NULL;
 }
-
-// /**
-//  * @brief Converte uma string para minúsculas.
-//  *
-//  * Esta função recebe uma string como entrada e retorna uma nova string onde todos
-//  * os caracteres alfabéticos foram convertidos para minúsculas. A string original
-//  * não é modificada. A memória para a nova string é alocada dinamicamente e deve
-//  * ser liberada pelo usuário após o uso.
-//  *
-//  * @param str A string de entrada que será convertida para minúsculas.
-//  * @return Uma nova string com todos os caracteres em minúsculas. Retorna NULL se
-//  *         ocorrer um erro de alocação de memória.
-//  */
-// static char *strlower(const char *str)
-// {
-//     // Aloca memória suficiente para a nova string, incluindo o caractere nulo '\0'
-//     char *s = malloc(strlen(str) + 1);
-
-//     // Verifica se a alocação foi bem-sucedida
-//     if (s == NULL)
-//         return NULL;
-
-//     // Converte cada caractere para minúsculo
-//     for (size_t i = 0; i < strlen(str); ++i)
-//         s[i] = tolower(str[i]);
-
-//     // Retorna a nova string com todos os caracteres em minúsculas
-//     return s;
-// }

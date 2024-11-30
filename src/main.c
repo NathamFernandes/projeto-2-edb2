@@ -6,22 +6,22 @@
 
 int main(int argc, char *argv[])
 {
+    if (argc == 1) {
+        printf("Usage: fly <file.csv>\n");
+        return EXIT_FAILURE;
+    }
+
     Heap *heap = initialize();
-    load_flights(argv[1], heap);
 
     if (heap == NULL)
         return EXIT_FAILURE;
 
-    printf("Heap: \n");
-    for (size_t i = 0; i < heap->size; i++)
-    {
-        printf("%hu ", heap->data[i].priority);
-    }
-    printf("\n");
+    bool success = load_flights(argv[1], heap);
 
-    main_loop(heap);
-
-    deallocate(&heap);
+    if (success)
+        main_loop(heap);
+    else 
+        return EXIT_FAILURE;
 
     return EXIT_SUCCESS;
 }

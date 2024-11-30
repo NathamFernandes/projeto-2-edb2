@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 #define MAX_LEN 6
 #define MAX_CAPACITY 50
@@ -38,12 +39,13 @@ typedef struct
 void swap(Flight *a, Flight *b);
 
 Heap *initialize();
-void load_flights(char *file_path, Heap *heap);
+bool load_flights(char *file_path, Heap *heap);
 void heapify(Heap *heap, size_t idx);
 void build_heap(Heap *heap);
 unsigned calculate_priority(Flight flight);
 void insert(Heap *heap, Flight flight);
-Flight *pop(Heap *heap);
+void pop(Heap *heap);
+Flight* top(Heap* heap);
 void deallocate(Heap **heap);
 // static char *strlower(const char *str);
 Flight *excluir(Heap *heap, char flight_id[MAX_LEN]);

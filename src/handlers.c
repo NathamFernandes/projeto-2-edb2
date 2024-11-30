@@ -28,13 +28,12 @@ static void draw_horizontal_line()
 }
 
 /**
- * @brief Desenha o cabeçalho da tabela.
- *
- * Esta função chama a função `draw_horizontal_line()` para desenhar uma
- * linha horizontal no topo da tabela e, em seguida, imprime o cabeçalho
- * com os títulos das colunas ("Id", "Title", "Author", "Genre", "Publisher",
- * "Year", "Pages"). Após a impressão do cabeçalho, outra linha horizontal
- * é desenhada no final.
+ * @brief Desenha o cabeçalho da tabela com os nomes das colunas.
+ * 
+ * Esta função exibe uma linha horizontal seguida de uma linha de cabeçalho
+ * contendo os títulos das colunas: ID, Combustível, Tempo, Operação, Emergência,
+ * Prioridade. Em seguida, é exibida uma outra linha horizontal para formatar
+ * a tabela.
  */
 static void draw_table_header()
 {
@@ -53,16 +52,14 @@ static void draw_table_header()
 }
 
 /**
- * @brief Desenha uma linha da tabela com os dados de um livro.
- *
- * Esta função imprime uma linha da tabela com os dados de um livro,
- * incluindo o ID, título, autor, gênero, editora, ano de publicação
- * e número de páginas. Ela usa a largura definida para cada coluna
- * para garantir que a formatação da tabela esteja alinhada corretamente.
- * Após imprimir a linha, a função `draw_horizontal_line()` é chamada
- * para desenhar uma linha horizontal ao final.
- *
- * @param book O livro cujos dados serão exibidos na linha da tabela.
+ * @brief Desenha uma linha de voo na tabela.
+ * 
+ * Esta função exibe uma linha de dados referente a um voo na tabela, com a
+ * formatação correta de cada coluna. As informações mostradas incluem o ID do voo,
+ * o combustível restante, o tempo de voo, a operação (decolagem ou pouso),
+ * o estado de emergência e a prioridade do voo.
+ * 
+ * @param flight O voo a ser exibido.
  */
 static void draw_row(Flight flight)
 {
@@ -79,9 +76,13 @@ static void draw_row(Flight flight)
 }
 
 /**
- * @brief Lida com a inserção de um novo livro na biblioteca.
- *
- * @param library O nó raiz da biblioteca.
+ * @brief Manipula a inserção de um novo voo na fila de prioridade.
+ * 
+ * Esta função solicita ao usuário as informações do voo (ID, combustível, tempo,
+ * operação e emergência) e cria um novo objeto de voo. O voo é inserido na estrutura
+ * de dados `heap` após calcular sua prioridade.
+ * 
+ * @param heap A estrutura de dados heap onde o voo será inserido.
  */
 void handle_flight_insert(Heap *heap)
 {
@@ -136,11 +137,46 @@ ATTR4:
     insert(heap, new_flight);
 }
 
+/**
+ * @brief Manipula a exclusão de um voo da fila de prioridade.
+ * 
+ * Esta função remove o voo com maior prioridade da estrutura de dados heap.
+ * 
+ * @param heap A estrutura de dados heap da qual o voo será removido.
+ */
 void handle_flight_excluir(Heap *heap)
 {
     pop(heap);
 }
 
+/**
+ * @brief Exibe o próximo voo na fila de prioridade.
+ * 
+ * Esta função exibe o próximo voo que será processado, ou seja, o voo com a maior
+ * prioridade na estrutura de dados heap. A função também exibe o cabeçalho da tabela
+ * antes de exibir os dados do voo.
+ * 
+ * @param heap A estrutura de dados heap da qual o voo será mostrado.
+ */
+void handle_next_flight(Heap* heap)
+{
+    Flight *next = top(heap);
+
+    draw_table_header();
+
+    if (heap != NULL)
+        draw_row(*next);
+}
+
+/**
+ * @brief Manipula a edição de um voo existente na fila de prioridade.
+ * 
+ * Esta função solicita ao usuário o ID do voo a ser editado e, se o voo existir,
+ * permite que o usuário altere seus atributos (combustível, tempo, operação, emergência).
+ * Após as alterações, o voo é reinserido na estrutura de dados heap.
+ * 
+ * @param heap A estrutura de dados heap onde o voo será editado.
+ */
 void handle_flight_edit(Heap *heap)
 {
     char aux_string[MAX_LEN];
@@ -201,18 +237,20 @@ ATTR4:
     insert(heap, *flight);
 }
 
-Heap *handle_flights_import(Heap *heap)
-{
-}
-
 /**
- * @brief Lida com a exibição dos livros da biblioteca.
- *
- * @param library O nó raiz da heap.
+ * @brief Exibe todos os voos na fila de prioridade.
+ * 
+ * Esta função exibe todos os voos na estrutura de dados heap. Para cada voo,
+ * é exibida uma linha da tabela com os dados do voo. O cabeçalho da tabela também
+ * é exibido antes dos dados dos voos.
+ * 
+ * @param heap A estrutura de dados heap onde os voos são armazenados.
  */
 void handle_flights_show(Heap *heap)
 {
     draw_table_header();
-    for (int i = 0; i < heap->size; i++)
-        draw_row(heap->data[i]);
+    if (heap != NULL) {
+        for (int i = 0; i < heap->size; i++)
+            draw_row(heap->data[i]);
+    }
 }

@@ -9,5 +9,6 @@ void handle_flight_edit(Heap *heap);
 void handle_flights_show(Heap *heap);
 Heap *handle_flights_import(Heap *heap);
 void handle_flights_show(Heap *heap);
+void handle_next_flight(Heap* heap);
 
 #endif
