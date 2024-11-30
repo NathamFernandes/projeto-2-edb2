@@ -168,8 +168,8 @@ void heapify(Heap *heap, size_t idx)
     size_t largest, left, right;
 
     largest = idx;
-    left = 2 * idx + 1;
-    right = 2 * idx + 2;
+    left    = 2 * idx + 1;
+    right   = 2 * idx + 2;
 
     // Verifica se o filho esquerdo existe e é maior que o nó atual
     if (left < heap->size && heap->data[left].priority > heap->data[largest].priority)
@@ -219,17 +219,41 @@ void pop(Heap *heap)
     heapify(heap, 0);
 }
 
+/**
+ * @brief Obtém o voo no topo da heap.
+ * 
+ * Esta função retorna o voo que está no topo da heap (índice 0), sem removê-lo. 
+ * Se a heap estiver vazia, exibe uma mensagem de erro e retorna NULL.
+ * 
+ * @param heap Ponteiro para a estrutura da heap.
+ * 
+ * @return Ponteiro para o voo no topo da heap ou NULL se a heap estiver vazia.
+ */
 Flight* top(Heap* heap)
 {
     if (heap->size == 0)
     {
         fprintf(stderr, "Nao ha elementos a serem consutados.\n");
-        return; // Se a heap estiver vazia, retorna NULL
+        return NULL;
     }
 
     return &heap->data[0];
 }
 
+/**
+ * @brief Remove um voo da heap.
+ * 
+ * Esta função remove o voo identificado pelo `flight_id` da heap. Se o `flight_id` 
+ * for NULL, ela remove o voo do topo da heap. Caso a heap esteja vazia ou o 
+ * voo com o `flight_id` não seja encontrado, a função retorna NULL.
+ * Após remover o voo, a função restaura a propriedade de Max-Heap, garantindo
+ * que a estrutura de heap continue válida.
+ * 
+ * @param heap Ponteiro para a estrutura da heap.
+ * @param flight_id Identificador do voo a ser removido. Se NULL, remove o topo da heap.
+ * 
+ * @return Ponteiro para o voo removido ou NULL se não for possível remover o voo.
+ */
 Flight *excluir(Heap *heap, char flight_id[MAX_LEN])
 {
     // Verifica se a heap está vazia
