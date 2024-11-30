@@ -229,16 +229,20 @@ Flight *excluir(Heap *heap, char flight_id[MAX_LEN])
         return NULL; // Se a heap estiver vazia, retorna NULL
     }
 
-    int index;
+    int index = -1;
 
     if (flight_id == NULL)
         index = 0;
     else
+    {
         for (int i = 0; i < heap->size; i++)
             if (strcmp(heap->data[i].id, flight_id) == 0)
                 index = i;
 
-    printf("%d", index);
+        if (index == -1)
+            return NULL;
+    }
+
     // Ponteiro para o voo que será removido (raiz da heap)
     Flight *flight = &heap->data[index];
 

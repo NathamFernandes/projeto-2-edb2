@@ -138,11 +138,7 @@ ATTR4:
 
 void handle_flight_excluir(Heap *heap)
 {
-    char aux_string[MAX_LEN];
-    printf("ID do Voo para remover: ");
-    scanf("%63s", aux_string);
-
-    excluir(heap, aux_string);
+    pop(heap);
 }
 
 void handle_flight_edit(Heap *heap)
@@ -150,6 +146,59 @@ void handle_flight_edit(Heap *heap)
     char aux_string[MAX_LEN];
     printf("ID do Voo para editar: ");
     scanf("%63s", aux_string);
+
+    Flight *flight = excluir(heap, aux_string);
+
+    if (flight == NULL)
+    {
+        printf("\nEdit invalida!\n");
+        return;
+    }
+
+    strcpy((*flight).id, aux_string);
+
+    char keys[5][64] = {
+        {"Combustivel"},
+        {"Tempo"},
+        {"Decolagem (D) ou Pouso (P)?"},
+        {"Emergencia? S/N"},
+    };
+
+    printf("%s: ", keys[0]);
+    scanf("%hu", (ushort *)&(*flight).fuel);
+    getchar();
+
+    printf("%s: ", keys[1]);
+    scanf("%hu", (ushort *)&(*flight).time);
+    getchar();
+
+ATTR3:
+
+    printf("%s: ", keys[2]);
+    scanf("%63s", aux_string);
+
+    if (strcmp(aux_string, "D") == 0)
+        (*flight).operation = TAKEOFF;
+    else if (strcmp(aux_string, "P") == 0)
+        (*flight).operation = LANDING;
+    else
+        goto ATTR3;
+
+ATTR4:
+
+    printf("%s: ", keys[3]);
+    scanf("%63s", aux_string);
+
+    if (strcmp(aux_string, "S") == 0)
+        (*flight).emergency = 1;
+    else if (strcmp(aux_string, "N") == 0)
+        (*flight).emergency = 0;
+    else
+        goto ATTR4;
+
+    (*flight).priority = calculate_priority(*flight);
+
+    insert(heap, *flight);
 }
 
 Heap *handle_flights_import(Heap *heap)

@@ -63,7 +63,7 @@ int render_first_menu()
 {
     int option;
 
-    printf("\n0 - Encerrar programa\n1 - Inserir um novo voo\n2 - Remover um voo\n3 - Alterar informacoes de um voo\n4 - Exibir todos os voos\n5 - Carregar voos por CSV\n6 - Fechar controle de trafego aereo\n\nOpcao: ");
+    printf("\n0 - Encerrar programa\n1 - Inserir um novo voo\n2 - Remover voo de maior prioridade\n3 - Alterar informacoes de um voo\n4 - Exibir todos os voos\n5 - Carregar voos por CSV\n6 - Fechar controle de trafego aereo\n\nOpcao: ");
 
     scanf("%d", &option);
 
