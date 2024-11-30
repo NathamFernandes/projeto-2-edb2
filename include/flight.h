@@ -45,6 +45,7 @@ unsigned calculate_priority(Flight flight);
 void insert(Heap *heap, Flight flight);
 Flight *pop(Heap *heap);
 void deallocate(Heap **heap);
-static char *strlower(const char *str);
+// static char *strlower(const char *str);
+Flight *excluir(Heap *heap, char flight_id[MAX_LEN]);
 
 #endif

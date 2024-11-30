@@ -220,6 +220,45 @@ Flight *pop(Heap *heap)
     return flight;
 }
 
+Flight *excluir(Heap *heap, char flight_id[MAX_LEN])
+{
+    // Verifica se a heap está vazia
+    if (heap->size == 0)
+    {
+        fprintf(stderr, "Impossível remover elemento, a árvore está vazia.\n");
+        return NULL; // Se a heap estiver vazia, retorna NULL
+    }
+
+    int index;
+
+    if (flight_id == NULL)
+        index = 0;
+    else
+        for (int i = 0; i < heap->size; i++)
+            if (strcmp(heap->data[i].id, flight_id) == 0)
+                index = i;
+
+    printf("%d", index);
+    // Ponteiro para o voo que será removido (raiz da heap)
+    Flight *flight = &heap->data[index];
+
+    if (flight_id == NULL)
+        heap->data[0] = heap->data[heap->size - 1];
+    else
+        for (int i = index; i < heap->size; i++)
+            heap->data[i] = heap->data[i + 1];
+
+    // Substitui a raiz pelo último elemento
+    // Decrementa o tamanho da heap
+    heap->size--;
+
+    // Restaura a propriedade de Max-Heap
+    heapify(heap, index);
+
+    // Retorna o voo removido
+    return flight;
+}
+
 /**
  * @brief Constrói a heap a partir de um array de dados.
  *
@@ -253,31 +292,31 @@ void deallocate(Heap **heap)
     *heap = NULL;
 }
 
-/**
- * @brief Converte uma string para minúsculas.
- *
- * Esta função recebe uma string como entrada e retorna uma nova string onde todos
- * os caracteres alfabéticos foram convertidos para minúsculas. A string original
- * não é modificada. A memória para a nova string é alocada dinamicamente e deve
- * ser liberada pelo usuário após o uso.
- *
- * @param str A string de entrada que será convertida para minúsculas.
- * @return Uma nova string com todos os caracteres em minúsculas. Retorna NULL se
- *         ocorrer um erro de alocação de memória.
- */
-static char *strlower(const char *str)
-{
-    // Aloca memória suficiente para a nova string, incluindo o caractere nulo '\0'
-    char *s = malloc(strlen(str) + 1);
+// /**
+//  * @brief Converte uma string para minúsculas.
+//  *
+//  * Esta função recebe uma string como entrada e retorna uma nova string onde todos
+//  * os caracteres alfabéticos foram convertidos para minúsculas. A string original
+//  * não é modificada. A memória para a nova string é alocada dinamicamente e deve
+//  * ser liberada pelo usuário após o uso.
+//  *
+//  * @param str A string de entrada que será convertida para minúsculas.
+//  * @return Uma nova string com todos os caracteres em minúsculas. Retorna NULL se
+//  *         ocorrer um erro de alocação de memória.
+//  */
+// static char *strlower(const char *str)
+// {
+//     // Aloca memória suficiente para a nova string, incluindo o caractere nulo '\0'
+//     char *s = malloc(strlen(str) + 1);
 
-    // Verifica se a alocação foi bem-sucedida
-    if (s == NULL)
-        return NULL;
+//     // Verifica se a alocação foi bem-sucedida
+//     if (s == NULL)
+//         return NULL;
 
-    // Converte cada caractere para minúsculo
-    for (size_t i = 0; i < strlen(str); ++i)
-        s[i] = tolower(str[i]);
+//     // Converte cada caractere para minúsculo
+//     for (size_t i = 0; i < strlen(str); ++i)
+//         s[i] = tolower(str[i]);
 
-    // Retorna a nova string com todos os caracteres em minúsculas
-    return s;
-}
+//     // Retorna a nova string com todos os caracteres em minúsculas
+//     return s;
+// }

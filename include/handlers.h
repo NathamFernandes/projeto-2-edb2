@@ -4,8 +4,10 @@
 #include "flight.h"
 
 void handle_flight_insert(Heap *heap);
-// void handle_book_search(Node *library);
-// Node *handle_books_import(Node *library);
+void handle_flight_excluir(Heap *heap);
+void handle_flight_edit(Heap *heap);
+void handle_flights_show(Heap *heap);
+Heap *handle_flights_import(Heap *heap);
 void handle_flights_show(Heap *heap);
 
 #endif

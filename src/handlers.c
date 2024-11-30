@@ -136,10 +136,30 @@ ATTR4:
     insert(heap, new_flight);
 }
 
+void handle_flight_excluir(Heap *heap)
+{
+    char aux_string[MAX_LEN];
+    printf("ID do Voo para remover: ");
+    scanf("%63s", aux_string);
+
+    excluir(heap, aux_string);
+}
+
+void handle_flight_edit(Heap *heap)
+{
+    char aux_string[MAX_LEN];
+    printf("ID do Voo para editar: ");
+    scanf("%63s", aux_string);
+}
+
+Heap *handle_flights_import(Heap *heap)
+{
+}
+
 /**
  * @brief Lida com a exibição dos livros da biblioteca.
  *
- * @param library O nó raiz da biblioteca.
+ * @param library O nó raiz da heap.
  */
 void handle_flights_show(Heap *heap)
 {
@@ -147,76 +167,3 @@ void handle_flights_show(Heap *heap)
     for (int i = 0; i < heap->size; i++)
         draw_row(heap->data[i]);
 }
-// {
-
-//     new_book.id = generate_id();
-
-//     for (int i = 0; i < 6; i++)
-//     {
-//         printf("%s: ", keys[i]);
-
-//         if (i < 4)
-//             scanf("%63s", (char *)attributes[i]);
-//         else
-//             scanf("%d", (int *)attributes[i]);
-//     }
-
-// printf("%s\n", new_flight.id);
-// printf("%d\n", new_flight.fuel);
-// printf("%d\n", new_flight.time);
-// printf("%d\n", new_flight.operation);
-// printf("%d\n", new_flight.emergency);
-// printf("%d\n", new_flight.priority);
-//     if (library == NULL)
-//     {
-//         Node *new_node = create_node(new_book);
-//         library = new_node;
-//         return library;
-//     }
-
-//     insert(&library, new_book);
-
-//     return library;
-// }
-
-// /**
-//  * @brief Lida com a procura de livros pelo gênero na biblioteca.
-//  *
-//  * @param library O nó raiz da biblioteca.
-//  */
-// void handle_book_search(Node *library)
-// {
-//     char genre[64];
-//     getchar();
-
-//     printf("Genero para pesquisa: ");
-//     scanf("%63[^\n]", genre);
-
-//     draw_table_header();
-//     search_by_genre(library, genre, draw_row);
-// }
-
-// /**
-//  * @brief Lida com a importação de novos livros para a biblioteca.
-//  *
-//  * @param library O nó raiz da biblioteca.
-//  */
-// Node *handle_books_import(Node *library)
-// {
-//     char path[128] = "seeders/";
-//     char extension[8] = ".csv";
-//     char file[64];
-//     getchar();
-
-//     printf("Nome do arquivo (apenas) para importacao: ");
-//     scanf("%63[^\n]", file);
-
-//     strcat(path, file);
-//     strcat(path, extension);
-
-//     printf("%s", path);
-
-//     library = load_books(path, library);
-
-//     return library;
-// }
