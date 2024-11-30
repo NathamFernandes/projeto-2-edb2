@@ -10,7 +10,7 @@
  * @param flights O ponteiro para o vetor de voos.
  * @param flights_amount O tamanho do vetor.
  */
-void main_loop(Heap* heap)
+void main_loop(Heap *heap)
 {
     int option;
 
@@ -23,7 +23,7 @@ void main_loop(Heap* heap)
         if (option == 0)
             return;
 
-        if (option < 0 || option > 5)
+        if (option < 0 || option > 7)
         {
             printf("\nOpcao invalida!\n");
             continue;
@@ -33,7 +33,7 @@ void main_loop(Heap* heap)
         switch (option)
         {
         case 1:
-            // library = handle_new_book(library);
+            handle_flight_insert(heap);
             break;
         case 2:
             // handle_book_search(library);
@@ -60,7 +60,7 @@ int render_first_menu()
 {
     int option;
 
-    printf("\n0 - Encerrar programa\n1 - Inserir um novo voo (not working)\n2 - Buscar livro por prioridade (not working)\n3 - Carregar voos por CSV (not working)\n4 - Exibir voos\n5 - Excluir voos\n\nOpcao: ");
+    printf("\n0 - Encerrar programa\n1 - Inserir um novo voo\n2 - Remover um voo\n3 - Alterar informacoes de um voo\n4 - Exibir todos os voos\n5 - Carregar voos por CSV\n7 - Fechar controle de trafego aereo\n\nOpcao: ");
 
     scanf("%d", &option);
 

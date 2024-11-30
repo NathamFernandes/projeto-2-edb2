@@ -78,31 +78,76 @@ static void draw_row(Flight flight)
     draw_horizontal_line();
 }
 
-// /**
-//  * @brief Lida com a inserção de um novo livro na biblioteca.
-//  *
-//  * @param library O nó raiz da biblioteca.
-//  */
-// Node *handle_new_book(Node *library)
-// {
-//     Book new_book;
-//     char keys[6][64] = {
-//         {"Titulo"},
-//         {"Autor"},
-//         {"Genero"},
-//         {"Publicador"},
-//         {"Paginas"},
-//         {"Ano"},
-//     };
+/**
+ * @brief Lida com a inserção de um novo livro na biblioteca.
+ *
+ * @param library O nó raiz da biblioteca.
+ */
+void handle_flight_insert(Heap *heap)
+{
+    Flight new_flight;
+    char aux_string[MAX_LEN];
 
-//     void *attributes[6] = {
-//         new_book.title,
-//         new_book.author,
-//         new_book.genre,
-//         new_book.publisher,
-//         &new_book.pages,
-//         &new_book.year,
-//     };
+    char keys[5][64] = {
+        {"ID"},
+        {"Combustivel"},
+        {"Tempo"},
+        {"Decolagem (D) ou Pouso (P)?"},
+        {"Emergencia? S/N"},
+    };
+
+    printf("%s: ", keys[0]);
+    scanf("%63s", (char *)new_flight.id);
+
+    printf("%s: ", keys[1]);
+    scanf("%hu", (ushort *)&new_flight.fuel);
+    getchar();
+
+    printf("%s: ", keys[2]);
+    scanf("%hu", (ushort *)&new_flight.time);
+    getchar();
+
+ATTR3:
+
+    printf("%s: ", keys[3]);
+    scanf("%63s", aux_string);
+
+    if (strcmp(aux_string, "D") == 0)
+        new_flight.operation = TAKEOFF;
+    else if (strcmp(aux_string, "P") == 0)
+        new_flight.operation = LANDING;
+    else
+        goto ATTR3;
+
+ATTR4:
+
+    printf("%s: ", keys[4]);
+    scanf("%63s", aux_string);
+
+    if (strcmp(aux_string, "S") == 0)
+        new_flight.emergency = 1;
+    else if (strcmp(aux_string, "N") == 0)
+        new_flight.emergency = 0;
+    else
+        goto ATTR4;
+
+    new_flight.priority = calculate_priority(new_flight);
+
+    insert(heap, new_flight);
+}
+
+/**
+ * @brief Lida com a exibição dos livros da biblioteca.
+ *
+ * @param library O nó raiz da biblioteca.
+ */
+void handle_flights_show(Heap *heap)
+{
+    draw_table_header();
+    for (int i = 0; i < heap->size; i++)
+        draw_row(heap->data[i]);
+}
+// {
 
 //     new_book.id = generate_id();
 
@@ -116,6 +161,12 @@ static void draw_row(Flight flight)
 //             scanf("%d", (int *)attributes[i]);
 //     }
 
+// printf("%s\n", new_flight.id);
+// printf("%d\n", new_flight.fuel);
+// printf("%d\n", new_flight.time);
+// printf("%d\n", new_flight.operation);
+// printf("%d\n", new_flight.emergency);
+// printf("%d\n", new_flight.priority);
 //     if (library == NULL)
 //     {
 //         Node *new_node = create_node(new_book);
@@ -169,15 +220,3 @@ static void draw_row(Flight flight)
 
 //     return library;
 // }
-
-/**
- * @brief Lida com a exibição dos livros da biblioteca.
- *
- * @param library O nó raiz da biblioteca.
- */
-void handle_flights_show(Heap* heap)
-{
-    draw_table_header();
-    for (int i = 0; i < heap->size; i++)
-        draw_row(heap->data[i]);
-}

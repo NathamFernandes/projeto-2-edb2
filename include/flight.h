@@ -9,8 +9,12 @@
 
 //== Structs/Enums
 
-typedef unsigned short ushort ;
-typedef enum { TAKEOFF, LANDING } Operation;
+typedef unsigned short ushort;
+typedef enum
+{
+    TAKEOFF,
+    LANDING
+} Operation;
 
 // Representação de um voo.
 typedef struct
@@ -23,7 +27,7 @@ typedef struct
     ushort priority;
 } Flight;
 
-typedef struct 
+typedef struct
 {
     Flight data[MAX_CAPACITY];
     size_t size;
@@ -31,15 +35,16 @@ typedef struct
 
 //== Aux functions
 
-void swap(Flight* a, Flight* b);
+void swap(Flight *a, Flight *b);
 
 Heap *initialize();
-void load_flights(char *file_path, Heap* heap);
-void heapify(Heap* heap, size_t idx);
-void build_heap(Heap* heap);
+void load_flights(char *file_path, Heap *heap);
+void heapify(Heap *heap, size_t idx);
+void build_heap(Heap *heap);
 unsigned calculate_priority(Flight flight);
-void insert(Heap* heap, Flight flight);
-Flight* pop(Heap* heap);
-void deallocate(Heap** heap);
+void insert(Heap *heap, Flight flight);
+Flight *pop(Heap *heap);
+void deallocate(Heap **heap);
+static char *strlower(const char *str);
 
 #endif

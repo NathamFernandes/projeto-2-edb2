@@ -3,9 +3,9 @@
 
 #include "flight.h"
 
-// Node *handle_new_book(Node *library);
+void handle_flight_insert(Heap *heap);
 // void handle_book_search(Node *library);
 // Node *handle_books_import(Node *library);
-void handle_flights_show(Heap* heap);
+void handle_flights_show(Heap *heap);
 
 #endif

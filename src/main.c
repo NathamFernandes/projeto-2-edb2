@@ -13,12 +13,13 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
 
     printf("Heap: \n");
-    for (size_t i = 0; i < heap->size; i++) {
+    for (size_t i = 0; i < heap->size; i++)
+    {
         printf("%hu ", heap->data[i].priority);
     }
     printf("\n");
-    
-    //main_loop(heap);
+
+    main_loop(heap);
 
     deallocate(&heap);
 
