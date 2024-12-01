@@ -6,7 +6,8 @@
 
 int main(int argc, char *argv[])
 {
-    if (argc == 1) {
+    if (argc == 1)
+    {
         printf("Usage: fly <file.csv>\n");
         return EXIT_FAILURE;
     }
@@ -20,7 +21,7 @@ int main(int argc, char *argv[])
 
     if (success)
         main_loop(heap);
-    else 
+    else
         return EXIT_FAILURE;
 
     return EXIT_SUCCESS;

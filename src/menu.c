@@ -19,7 +19,7 @@ void main_loop(Heap *heap)
         // Pega a opção do usuário.
         option = render_first_menu();
 
-        if (option < 1 || option > 6)
+        if (option < 1 || option > 7)
         {
             printf("\nOpcao invalida!\n");
             continue;
@@ -44,6 +44,9 @@ void main_loop(Heap *heap)
             handle_next_flight(heap);
             break;
         case 6:
+            handle_flights_import(heap);
+            break;
+        case 7:
             deallocate(&heap);
             return;
         }
@@ -59,7 +62,7 @@ int render_first_menu()
 {
     int option;
 
-    printf("\n1 - Inserir um novo voo\n2 - Remover voo de maior prioridade\n3 - Alterar informacoes de um voo\n4 - Exibir todos os voos\n5 - Consultar proximo voo\n6 - Fechar controle de trafego aereo\n\nOpcao: ");
+    printf("\n1 - Inserir um novo voo\n2 - Remover voo de maior prioridade\n3 - Alterar informacoes de um voo\n4 - Exibir todos os voos\n5 - Consultar proximo voo\n6 - Importar voos por arquivo CSV\n7 - Fechar controle de trafego aereo\n\nOpcao: ");
 
     scanf("%d", &option);
 
